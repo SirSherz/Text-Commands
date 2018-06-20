@@ -16,7 +16,7 @@ mail.list()
 
 # The folder being searched for. You can create a new folder in your gmail account or use 'INBOX' for inbox.
 # The correct spelling of the folder is important. 
-mail.select('INBOX')
+mail.select('python')
 
 #-----------------------------------------------------#
 # This function takes a list of integers, and prints  #
@@ -27,7 +27,9 @@ def print_message_to_file(email_list):
         for i in range(0, (len(email_list))):
                 result_email, data_email = mail.fetch(str(email_list[i]), 'RFC822')
                 raw_email = email.message_from_string(data_email[0][1])
-                print get_body(raw_email)
+                stir = get_body(raw_email)
+                print type(stir)
+                print stir
 
 #-----------------------------------------------------#
 # This function takes a raw input of the email, and   #
@@ -39,6 +41,13 @@ def get_body(msg):
                 return get_body(msg.get_payload(0))
         else:
                 return msg.get_payload(None, True)
+
+#-----------------------------------------------------#
+# This function checks if condition 1 or 2 is send    #
+#-----------------------------------------------------#
+#def which_condition(text):
+
+
 
 # This searches for all unread messages in our selected folder. 
 result_email, data_email = mail.search(None, '(UNSEEN)')
