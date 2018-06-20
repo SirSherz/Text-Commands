@@ -28,8 +28,7 @@ def print_message_to_file(email_list):
                 result_email, data_email = mail.fetch(str(email_list[i]), 'RFC822')
                 raw_email = email.message_from_string(data_email[0][1])
                 stir = get_body(raw_email)
-                print type(stir)
-                print stir
+                which_condition(stir)
 
 #-----------------------------------------------------#
 # This function takes a raw input of the email, and   #
@@ -45,7 +44,19 @@ def get_body(msg):
 #-----------------------------------------------------#
 # This function checks if condition 1 or 2 is send    #
 #-----------------------------------------------------#
-#def which_condition(text):
+def which_condition(text):
+        if(text[0] == '1'):
+                condition_1(text)
+        else:
+                condition_2(text)
+
+def condition_1(text):
+        cmd, first_name, last_name, num_days = text.split()
+        print 'condition ' + cmd + ' first name ' + first_name + ' last name ' + last_name + ' days: ' + num_days
+
+def condition_2(text):
+        cmd, first_name, last_name, stir, num_dollars = text.split()
+        print 'condition ' + cmd + ' first name ' + first_name + ' last name ' + last_name + ' string: ' + stir + ' $: ' + num_dollars
 
 
 
