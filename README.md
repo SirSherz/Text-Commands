@@ -115,8 +115,8 @@ Next find the mail.select('pyhton') code, and change the 'python' part to whatev
  Send an email to the account using the following format:
 If you would like to update the calendar, send the message starting with 1 followed by the first name, and last name of the client, and how many days from the current date you would like to create an event for. For example            1 Jon Doe 10
 If you would like to update the paid and unpaid account on excel, send the message starting with 2 followed by first name, last name, amount, and if it’s paid, or unpaid.                                 2 Jon Doe 100 Paid
-Open your terminal, and set the working directory to where textcommands.py file is located. Then run it using the following command
+Open your terminal, and set the working directory to where textCommands.py file is located. Then run it using the following command
 ```
-python textcommands.py
+python textCommands.py
 ```
 If you tried to update the calendar, it will give you a prompt stating that the event has been created. You can open your google calendar to check if it went through.
