@@ -19,7 +19,6 @@ To run this quickstart, you'll need:
 Python 2.6 or greater.
 The pip package management tool.
 A Google account with Google Calendar enabled.
-`
 
 ### Installing
 
