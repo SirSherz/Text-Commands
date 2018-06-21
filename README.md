@@ -21,7 +21,7 @@ A Google account with Google Calendar enabled.
 
 # Installing
 
-## Step 1
+# Step 1
 First you will need to download python according to your OS.
 
 ### Mac
@@ -54,7 +54,7 @@ If you run python and it's not there, install it.
 Type quit() and press Enter to exit python.
 You should be back at a prompt similar to what you had before you typed python. If not, find out why.
 
-## Step 2
+# Step 2
 ## Do I need to install pip?
 ### Python 2.7.9+ and 3.4+
 Good news! Python 3.4 (released March 2014) and Python 2.7.9 (released December 2014) ship with Pip. This is the best feature of any Python release. It makes the community's wealth of libraries accessible to everyone. Newbies are no longer excluded from using community libraries by the prohibitive difficulty of setup. In shipping with a package manager, Python joins Ruby, Node.js, Haskell, Perl, Go--almost every other contemporary language with a majority open-source community. Thank you Python.
