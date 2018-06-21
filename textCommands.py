@@ -93,8 +93,8 @@ def create_event(event_list):
 
 # The username and password for the gmail account. This can be uploaded from a seprate file, or hard coded into
 # the python code. 
-gmail_username = 'sherzah'
-gmail_password = 'partyboner'
+gmail_username = ''
+gmail_password = ''
 
 # This is to code to connect to the gmail API, using the secured IMAP4_SSL
 mail = imaplib.IMAP4_SSL('imap.gmail.com')
@@ -122,18 +122,10 @@ def get_date(email_list):
                 result_email, data_email = mail.fetch(str(email_list[i]), 'RFC822')
                 raw_email = email.message_from_string(data_email[0][1])
                 stir = get_body(raw_email)
-                print stir
-                #print 'raw_email date: ' + raw_email['Date']
                 date_text = raw_email['Date']
                 date = parser.parse(date_text)
                 date = date.isoformat()
-                #print date
                 yourdate = parser.parse(date)
-                #newdate = yourdate - datetime.timedelta(hours=4)
-                #newdate = yourdate + datetime.timedelta(days=email_list[])
-                #print newdate
-                #newdate2 = newdate.isoformat()
-                #print newdate2
                 which_condition(stir, yourdate)
 
 
