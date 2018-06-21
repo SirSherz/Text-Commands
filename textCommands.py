@@ -16,22 +16,28 @@ try:
 except ImportError:
     flags = None
 
-# If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/calendar-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Text-Command'
 
+# The username and password for the gmail account. This can be uploaded from a seprate file, or hard coded into
+# the python code. 
+gmail_username = ''
+gmail_password = ''
 
+# This is to code to connect to the gmail API, using the secured IMAP4_SSL
+mail = imaplib.IMAP4_SSL('imap.gmail.com')
+mail.login(gmail_username, gmail_password)
+mail.list()
+
+# The folder being searched for. You can create a new folder in your gmail account or use 'INBOX' for inbox.
+# The correct spelling of the folder is important. 
+mail.select('python')
+
+#-----------------------------------------------------#
+# This function checks if the credential are correct. #
+#-----------------------------------------------------#
 def get_credentials():
-    """Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
@@ -51,20 +57,14 @@ def get_credentials():
         print('Storing credentials to ' + credential_path)
     return credentials
 
+#-----------------------------------------------------#
+# This function creates an event in the google        #
+# calander.                                           #
+#-----------------------------------------------------#
 def create_event(event_list):
-    """Shows basic usage of the Google Calendar API.
-
-    Creates a Google Calendar API service object and outputs a list of the next
-    10 events on the user's calendar.
-    """
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
     service = discovery.build('calendar', 'v3', http=http)
-
-    # Refer to the Python quickstart on how to setup the environment:
-    # https://developers.google.com/google-apps/calendar/quickstart/python
-    # Change the scope to 'https://www.googleapis.com/auth/calendar' and delete any
-    # stored credentials.
 
     event = {
       'summary': event_list[1] + ' ' + event_list[2],
@@ -90,21 +90,6 @@ def create_event(event_list):
     event = service.events().insert(calendarId='primary', body=event).execute()
     print ('Event created: %s' % (event.get('htmlLink')))
 
-
-# The username and password for the gmail account. This can be uploaded from a seprate file, or hard coded into
-# the python code. 
-gmail_username = ''
-gmail_password = ''
-
-# This is to code to connect to the gmail API, using the secured IMAP4_SSL
-mail = imaplib.IMAP4_SSL('imap.gmail.com')
-mail.login(gmail_username, gmail_password)
-mail.list()
-
-# The folder being searched for. You can create a new folder in your gmail account or use 'INBOX' for inbox.
-# The correct spelling of the folder is important. 
-mail.select('python')
-
 #-----------------------------------------------------#
 # This function takes a list of integers, and prints  #
 # the emails respective to those integers. 1 being    #
@@ -116,8 +101,14 @@ def print_message_to_file(email_list):
                 raw_email = email.message_from_string(data_email[0][1])
                 stir = get_body(raw_email)
                 
-                
-def get_date(email_list):
+#-----------------------------------------------------#
+# This function takes a list of integers, and uses    #
+# the emails respective to those integers. 1 being    #
+# the first email, and so forth. Then sends the msg   #
+# and date to the respective function for further     #
+# processing.                                         #
+#-----------------------------------------------------#               
+def get_email_date(email_list):
         for i in range(0, (len(email_list))):
                 result_email, data_email = mail.fetch(str(email_list[i]), 'RFC822')
                 raw_email = email.message_from_string(data_email[0][1])
@@ -127,11 +118,6 @@ def get_date(email_list):
                 date = date.isoformat()
                 yourdate = parser.parse(date)
                 which_condition(stir, yourdate)
-
-
-
-
-
 
 #-----------------------------------------------------#
 # This function takes a raw input of the email, and   #
@@ -178,8 +164,6 @@ def condition_2(text):
         event_list = [cmd, first_name, last_name, stir, num_dollars]
         print  event_list
 
-
-
 # This searches for all unread messages in our selected folder. 
 result_email, data_email = mail.search(None, '(UNSEEN)')
 
@@ -187,8 +171,4 @@ result_email, data_email = mail.search(None, '(UNSEEN)')
 unread_email_list = data_email[0].split()
 
 # This function takes the list of emails, and prints the contents to a file. 
-get_date(unread_email_list)
-
-# This function gets the date of the emails sent
-#email_date = get_date(unread)
-
+get_email_date(unread_email_list)
