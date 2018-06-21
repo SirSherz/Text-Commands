@@ -10,12 +10,6 @@ from oauth2client import client
 from oauth2client import tools
 from os import path
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
-
 SCOPES = 'https://www.googleapis.com/auth/calendar'
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Text-Command'
@@ -42,8 +36,7 @@ def get_credentials():
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'text-command-cred.json')
+    credential_path = os.path.join(credential_dir,'text-command-cred.json')
 
     store = oauth2client.file.Storage(credential_path)
     credentials = store.get()

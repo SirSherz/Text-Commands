@@ -108,6 +108,8 @@ Move this file to your working directory and rename it client_secret.json.
 
 Open the python file in you selected editor, and update the gmail_username, and gmail_password with your email, and password. Save the file.
 
+Next find the mail.select('pyhton') code, and change the 'python' part to whatever folder you would like to search. 
+
 ## Running the tests
 
  Send an email to the account using the following format:
